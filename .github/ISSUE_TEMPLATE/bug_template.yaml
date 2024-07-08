@@ -19,7 +19,7 @@ body:
         required: true
       - label: I made sure to check if an issue already exists
         required: true
-      - label: I uploaded a "latest.log" found in the "logs" folder to [mclogs](https://mclo.gs/)
+      - label: I uploaded a "latest.log" found in the "logs" folder to [mclogs](https://mclo.gs)
 - type: input
   id: mc-log
   attributes:
