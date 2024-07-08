@@ -21,6 +21,14 @@ body:
         required: true
       - label: I uploaded a "latest.log" found in the "logs" folder to [mclogs](https://mclo.gs/)
 - type: input
+  id: mc-log
+  attributes:
+    label: Link to that log
+    description: "Please upload a log as seen above"
+    placeholder: "https://mclo.gs/whatever"
+  validations:
+    required: true
+- type: input
   id: mc-ver
   attributes:
     label: Minecraft version
