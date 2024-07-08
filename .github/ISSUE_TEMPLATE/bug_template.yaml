@@ -5,10 +5,11 @@ labels: ["bug", "triage"]
 projects: ["3x1t-5tyl3/exitiantweaks"]
 assignees:
   - 3x1t-5tyl3
+
+body:
 - type: markdown
   attributes:
     value: "## Please give as much info as you can!"
-body:
 - type: checkboxes
   id: existing-issue-check
   attributes:
