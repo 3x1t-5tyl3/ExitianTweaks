@@ -1,0 +1,10 @@
+body:
+- type: checkboxes
+  id: existing-issue-check
+  attributes:
+    description: Select all that apply
+    options:
+      - label: I checked that the version is in range of supported versions.
+        required: true
+      - label: I made sure to check if an issue already exists
+        required: true
