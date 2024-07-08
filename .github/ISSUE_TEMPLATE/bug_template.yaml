@@ -19,6 +19,7 @@ body:
         required: true
       - label: I made sure to check if an issue already exists
         required: true
+      - label: I uploaded a "latest.log" found in the "logs" folder to [mclogs](https://mclo.gs/)
 - type: input
   id: mc-ver
   attributes:
@@ -43,3 +44,25 @@ body:
     placeholder: "1.x.x"
   validations:
     required: true
+- type: textarea
+  id: repro
+  attributes:
+    label: Reproduction steps
+    description: "How do you trigger this bug? Please walk us through it step by step."
+    value: |
+      1.
+      2.
+      3.
+      ...
+    render: bash
+  validations:
+    required: true
+- type: textarea
+  id: addit
+  attributes:
+    label: Additional info
+    description: "Any additional info you think might be important"
+    value: "Anything of note.."
+    render: bash
+  validations:
+    required: false
