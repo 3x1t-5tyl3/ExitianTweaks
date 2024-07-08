@@ -2,9 +2,9 @@ name: Bug Report
 description: File a bug report.
 title: "[Bug] - "
 labels: ["bug", "triage"]
+projects: ["3x1t-5tyl3/exitiantweaks"]
 assignees:
   - 3x1t-5tyl3
-
 - type: markdown
   attributes:
     value: "## Please give as much info as you can!"
@@ -19,7 +19,6 @@ body:
         required: true
       - label: I made sure to check if an issue already exists
         required: true
-
 - type: input
   id: mc-ver
   attributes:
@@ -28,7 +27,6 @@ body:
     placeholder: "1.21.x"
   validations:
     required: true
-
 - type: input
   id: loader-ver
   attributes:
@@ -37,7 +35,6 @@ body:
     placeholder: "NeoForge 21.x.x.x"
   validations:
     required: true
-
 - type: input
   id: mod-ver
   attributes:
