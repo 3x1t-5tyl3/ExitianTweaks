@@ -1,3 +1,5 @@
+name: Yeet my skeet
+about: yeeter
 body:
 - type: checkboxes
   id: existing-issue-check
