@@ -29,51 +29,55 @@ public class Config {
             .defineInRange("rightBarHeightOffset", 0, -50, 50);
 
     private static final ModConfigSpec.BooleanValue ALLOW_NETHER_PORTAL = BUILDER
+            .worldRestart()
             .comment("Whether to allow the nether portal from forming.")
-            .comment("\"False\" disables forming.")
+            .comment("\"Off\" disables forming.")
             .comment("Default: true")
             .define("allowNetherPortalForming", true);
 
     private static final ModConfigSpec.BooleanValue GENERATE_LARGE_ORE_NODES = BUILDER
+            .worldRestart()
             .comment("Whether to generate large ore nodes.")
-            .comment("\"False\" disables the carver-ores.")
+            .comment("\"Off\" disables the carver-ores.")
             .comment("Default: true")
             .define("generateLargeOreNodes", true);
 
     private static final ModConfigSpec.BooleanValue DISABLE_NARRATOR = BUILDER
             .comment("Whether to mute and disable the narrator onboarding on first startup.")
-            .comment("\"True\" disables the Narrator.")
+            .comment("\"On\" disables the Narrator.")
             .comment("default: true")
             .define("disableAccessibilityOnboardingScreen", true);
 
     private static final ModConfigSpec.BooleanValue ENABLE_INVENTORY_TOTEM = BUILDER
             .comment("Should any item with the tag #c:death_preventables stop the player from dying in the inventory.")
-            .comment("\"True\" enables totem-ability in the inventory.")
+            .comment("\"On\" enables totem-ability in the inventory.")
             .comment("default: false")
             .define("enableInventoryTotem", false);
 
     private static final ModConfigSpec.BooleanValue HOT_ITEMS_DAMAGE_PLAYER = BUILDER
             .comment("If any item with the tag c:will_burn_players will.. burn players.")
             .comment("This is the same damage as being hurt by lava. Fire protection does mitigate.")
-            .comment("\"True\" enables this.")
+            .comment("\"On\" enables this.")
             .comment("default: false")
             .define("hotItemsDamagePlayers", false);
 
     private static final ModConfigSpec.BooleanValue ITEMS_HEAT_IMMUNE = BUILDER
             .comment("Any item with this tag becomes immune to lava and fire.")
-            .comment("\"True\" enables the behaviour. If false the tag does nothing.")
-            .comment("default: true")
-            .define("itemsFireImmunity", true);
+            .comment("\"On\" enables the behaviour. If false the tag does nothing.")
+            .comment("default: false")
+            .define("itemsFireImmunity", false);
 
     private static final ModConfigSpec.BooleanValue EXPERIENCE_DISABLE = BUILDER
+            .worldRestart()
             .comment("How the xp should be disabled.")
-            .comment("\"0\" is vanilla behaviour, \"2\" disables XP entirely.")
-            .comment("default: 0")
+            .comment("\"Off\" is vanilla behaviour, \"On\" disables XP entirely.")
+            .comment("default: false")
             .define("disableXP", false);
 
     private static final ModConfigSpec.IntValue OFFSET_APPLESKIN = BUILDER
             .comment("Offset the appleskin overlay")
-            .defineInRange("offsetAppleskin", 33, 0, 100);
+            .comment("\"33\" by default. If XP is disabled it will apply a default offset of 33 to align it.")
+            .defineInRange("offsetAppleskin", 0, 0, 200);
 
     public static Boolean allowNetherPortalForming;
     public static Double minecartSpeed;

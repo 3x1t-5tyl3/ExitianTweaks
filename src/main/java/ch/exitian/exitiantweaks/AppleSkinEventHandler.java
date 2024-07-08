@@ -11,6 +11,10 @@ public class AppleSkinEventHandler {
 
     @SubscribeEvent
     public void offsetAppleskin(HUDOverlayEvent event) {
-        event.y = event.guiGraphics.guiHeight() - Config.offsetAppleskin;
+        int XPOffset = 0;
+        if (Config.disableXP) {
+            XPOffset = 33;
+        }
+        event.y = event.guiGraphics.guiHeight() - (Config.offsetAppleskin + XPOffset);
     }
 }

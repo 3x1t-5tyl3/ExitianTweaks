@@ -40,7 +40,6 @@ public class EventHandler {
     @SubscribeEvent
     public static void deleteXPOrbs(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof ExperienceOrb && Config.disableXP) {
-            //event.getEntity().remove(null);
             event.setCanceled(true);
         }
     }
@@ -52,6 +51,7 @@ public class EventHandler {
     public static void deleteXPFromCommand(PlayerXpEvent.XpChange event) {
         event.setCanceled(Config.disableXP);
     }
+
 
     @SubscribeEvent
     public static void setFireAndLavaImmune(EntityJoinLevelEvent event) {
