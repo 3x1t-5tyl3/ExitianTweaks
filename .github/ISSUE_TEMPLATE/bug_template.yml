@@ -8,7 +8,7 @@ assignees:
 
 - type: markdown
   attributes:
-    value: "## Please give as much info as you can!
+    value: "## Please give as much info as you can!"
 body:
 - type: checkboxes
   id: existing-issue-check
