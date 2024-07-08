@@ -13,7 +13,6 @@ body:
   id: existing-issue-check
   attributes:
     label: Check all that apply
-    
     options:
       - label: I checked that the version is in range of supported versions.
         required: true
