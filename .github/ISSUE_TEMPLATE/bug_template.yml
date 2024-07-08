@@ -1,5 +1,10 @@
-name: Yeet my skeet
-about: yeeter
+name: Bug Report
+description: File a bug report.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+projects: ["octo-org/1", "octo-org/44"]
+assignees:
+  - 3x1t-5tyl3
 body:
 - type: checkboxes
   id: existing-issue-check
