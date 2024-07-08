@@ -9,7 +9,8 @@ body:
 - type: checkboxes
   id: existing-issue-check
   attributes:
-    description: Select all that apply
+    label: Check all that apply
+    
     options:
       - label: I checked that the version is in range of supported versions.
         required: true
