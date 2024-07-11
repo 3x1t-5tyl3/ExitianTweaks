@@ -1,12 +1,22 @@
 package ch.exitian.exitiantweaks;
 
 import ch.exitian.exitiantweaks.config.Config;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import cpw.mods.modlauncher.api.IModuleLayerManager;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.AccessibilityOnboardingScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.arguments.ResourceArgument;
+import net.minecraft.commands.arguments.coordinates.Vec3Argument;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -24,11 +34,13 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.common.EffectCures;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerXpEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -43,13 +55,21 @@ public class EventHandler {
 
     //used for timing stuff
     public static int lastTick = 0;
-
-    
-
+    // TODO: Implement animations one shot protection
     @SubscribeEvent
-    public static void yeet(BlockEvent.BreakEvent event) {
-        if (event.getPlayer().getMainHandItem().is());
+    public static void oneShotProt(LivingIncomingDamageEvent event) {
+        if (event.getEntity() instanceof Player pPlayer) {
+            if (event.getOriginalAmount() + 1 > pPlayer.getHealth()) {
+                pPlayer.setHealth(2f);
+
+                event.setCanceled(true);
+
+            }
+
+        }
+
     }
+
 
     @SubscribeEvent
     public static void peacefulHunger(EntityJoinLevelEvent event) {

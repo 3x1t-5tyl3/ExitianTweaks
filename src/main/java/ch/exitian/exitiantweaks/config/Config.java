@@ -29,10 +29,18 @@ public class Config {
             .comment("Whether to generate large copper and iron ore nodes. Might break your world if you toggle this.")
             .define("generateLargeOreNodes", true);
 
+    private static final ModConfigSpec.BooleanValue ONE_SHOT_PROT = BUILDER
+            .comment("Whether to enable one-shot protection. Will set health to 1 heart instead of killing.")
+            .define("oneShotProt", false);
+    private static final ModConfigSpec.IntValue ONE_SHOT_CD = BUILDER
+            .comment("How long the cooldown should be. In Ticks. 600 ticks are 30 seconds.")
+            .defineInRange("oneShotCD", 600,0, Integer.MAX_VALUE);
+
     public static Boolean disableXP;
     public static Boolean allowNetherPortalForming;
     public static Double minecartSpeed;
     public static Boolean generateLargeOreNodes;
+    public static Boolean oneShotProt;
 
     //************************
     // Tag related
@@ -118,6 +126,7 @@ public class Config {
         minecartSpeed = MINECART_SPEED.get();
         generateLargeOreNodes = GENERATE_LARGE_ORE_NODES.get();
         disableXP = EXPERIENCE_DISABLE.get();
+        oneShotProt = ONE_SHOT_PROT.get();
 
         leftBarHeightOffset = LEFT_BAR_HEIGHT.get();
         rightBarHeightOffset = RIGHT_BAR_HEIGHT.get();
