@@ -11,7 +11,11 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -22,40 +26,62 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.common.EffectCures;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerXpEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import static ch.exitian.exitiantweaks.ExitianTweaks.*;
+import static ch.exitian.exitiantweaks.config.Config.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.GAME)
 public class EventHandler {
 
+    //used for timing stuff
     public static int lastTick = 0;
+
+    
+
+    @SubscribeEvent
+    public static void yeet(BlockEvent.BreakEvent event) {
+        if (event.getPlayer().getMainHandItem().is());
+    }
+
+    @SubscribeEvent
+    public static void peacefulHunger(EntityJoinLevelEvent event) {
+        switch (event.getEntity()) {
+            case EnderDragon e -> event.setCanceled(preventDragonBoss);
+            case WitherBoss w -> event.setCanceled(preventWitherBossSpawn);
+            case Monster m -> event.setCanceled(preventHostiles);
+            case Slime s -> event.setCanceled(preventSlimeSpawn);
+            default -> event.setCanceled(false);
+        }
+    }
 
     //These 3 kinda all need to be here to ensure no abuse of items/XP. Also see HotbarMixin as it sets a default -6 to the hotbar renderer.
     @SubscribeEvent
     public static void deleteXPOrbs(EntityJoinLevelEvent event) {
-        if (event.getEntity() instanceof ExperienceOrb && Config.disableXP) {
+        if (event.getEntity() instanceof ExperienceOrb && disableXP) {
             event.setCanceled(true);
         }
     }
     @SubscribeEvent
     public static void deleteXPFromPlayer(PlayerXpEvent.PickupXp event) {
-        event.setCanceled(Config.disableXP);
+        event.setCanceled(disableXP);
     }
     @SubscribeEvent
     public static void deleteXPFromCommand(PlayerXpEvent.XpChange event) {
-        event.setCanceled(Config.disableXP);
+        event.setCanceled(disableXP);
     }
 
 
     @SubscribeEvent
     public static void setFireAndLavaImmune(EntityJoinLevelEvent event) {
-        if (event.getEntity() instanceof ItemEntity item && Config.itemsFireImmunity) {
+        if (event.getEntity() instanceof ItemEntity item && itemsFireImmunity) {
             if (item.getItem().is(heatResistantItems)) {
                 item.setInvulnerable(true);
             }
@@ -65,7 +91,7 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void portalSpawnEvent(BlockEvent.PortalSpawnEvent event) {
-        event.setCanceled(!Config.allowNetherPortalForming);
+        event.setCanceled(!allowNetherPortalForming);
     }
 
     @SubscribeEvent
@@ -73,7 +99,8 @@ public class EventHandler {
 
         Player player = event.getEntity();
         double randomTime = remap(Math.random(), 60, 90);
-        if (!player.getInventory().isEmpty() && lastTick >= randomTime && Config.hotItemsDamagePlayers) {
+        if (!player.getInventory().isEmpty() && lastTick >= randomTime && hotItemsDamagePlayers) {
+
             for (ItemStack item : event.getEntity().getInventory().items) {
                 if (item.is(willBurnPlayers)) {
                     player.lavaHurt();
@@ -94,7 +121,7 @@ public class EventHandler {
     @SubscribeEvent
     public static void narratorScreen(ScreenEvent.Init.Post event) {
         if (event.getScreen() instanceof AccessibilityOnboardingScreen) {
-            if (Config.disableAccessibilityOnboardingScreen) {
+            if (disableAccessibilityOnboardingScreen) {
                 Minecraft.getInstance().setScreen(new TitleScreen());
             }
         }
@@ -102,7 +129,7 @@ public class EventHandler {
 
     @SubscribeEvent
     static public void preventDeathTotemInventory(LivingDeathEvent event) {
-        if (Config.enableInventoryTotem) {
+        if (enableInventoryTotem) {
             Entity entity = event.getEntity();
             ItemStack itemStack = null;
             if (entity instanceof Player) {

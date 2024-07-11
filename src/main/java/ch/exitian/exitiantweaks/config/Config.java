@@ -12,100 +12,126 @@ public class Config {
 
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
+    //************************
+    // Mechanics non-mob related
+    //
+    private static final ModConfigSpec.BooleanValue EXPERIENCE_DISABLE = BUILDER
+            .comment("Disable xp from dropping, commands and the bar. Does not remove XP already obtained.")
+            .define("disableXP", false);
     private static final ModConfigSpec.DoubleValue MINECART_SPEED = BUILDER
-            .comment("Speed of the vanilla minecart.")
-            .comment("\"1.2\" is vanilla default maximum speed. High speeds will probably derail the cart.")
-            .comment("Default: 1.2")
+            .comment("Speed of the vanilla minecart. Going over 2.0 will probably derail you around corners.")
             .defineInRange("minecartMaxSpeed", 1.2d, 0.5d, 20d);
-
-    private static final ModConfigSpec.IntValue LEFT_BAR_HEIGHT = BUILDER
-            .comment("Height of the heart and armor bar offset.")
-            .comment("Default: 0")
-            .defineInRange("leftBarHeightOffset", 0, -50, 50);
-
-    private static final ModConfigSpec.IntValue RIGHT_BAR_HEIGHT = BUILDER
-            .comment("Height of the food bar offset.")
-            .comment("Default: 0")
-            .defineInRange("rightBarHeightOffset", 0, -50, 50);
-
     private static final ModConfigSpec.BooleanValue ALLOW_NETHER_PORTAL = BUILDER
-            .worldRestart()
             .comment("Whether to allow the nether portal from forming.")
-            .comment("\"Off\" disables forming.")
-            .comment("Default: true")
             .define("allowNetherPortalForming", true);
-
     private static final ModConfigSpec.BooleanValue GENERATE_LARGE_ORE_NODES = BUILDER
             .worldRestart()
-            .comment("Whether to generate large ore nodes.")
-            .comment("\"Off\" disables the carver-ores.")
-            .comment("Default: true")
+            .comment("Whether to generate large copper and iron ore nodes. Might break your world if you toggle this.")
             .define("generateLargeOreNodes", true);
 
-    private static final ModConfigSpec.BooleanValue DISABLE_NARRATOR = BUILDER
-            .comment("Whether to mute and disable the narrator onboarding on first startup.")
-            .comment("\"On\" disables the Narrator.")
-            .comment("default: true")
-            .define("disableAccessibilityOnboardingScreen", true);
-
-    private static final ModConfigSpec.BooleanValue ENABLE_INVENTORY_TOTEM = BUILDER
-            .comment("Should any item with the tag #c:death_preventables stop the player from dying in the inventory.")
-            .comment("\"On\" enables totem-ability in the inventory.")
-            .comment("default: false")
-            .define("enableInventoryTotem", false);
-
-    private static final ModConfigSpec.BooleanValue HOT_ITEMS_DAMAGE_PLAYER = BUILDER
-            .comment("If any item with the tag c:will_burn_players will.. burn players.")
-            .comment("This is the same damage as being hurt by lava. Fire protection does mitigate.")
-            .comment("\"On\" enables this.")
-            .comment("default: false")
-            .define("hotItemsDamagePlayers", false);
-
-    private static final ModConfigSpec.BooleanValue ITEMS_HEAT_IMMUNE = BUILDER
-            .comment("Any item with this tag becomes immune to lava and fire.")
-            .comment("\"On\" enables the behaviour. If false the tag does nothing.")
-            .comment("default: false")
-            .define("itemsFireImmunity", false);
-
-    private static final ModConfigSpec.BooleanValue EXPERIENCE_DISABLE = BUILDER
-            .worldRestart()
-            .comment("How the xp should be disabled.")
-            .comment("\"Off\" is vanilla behaviour, \"On\" disables XP entirely.")
-            .comment("default: false")
-            .define("disableXP", false);
-
-    private static final ModConfigSpec.IntValue OFFSET_APPLESKIN = BUILDER
-            .comment("Offset the appleskin overlay")
-            .comment("\"33\" by default. If XP is disabled it will apply a default offset of 33 to align it.")
-            .defineInRange("offsetAppleskin", 0, 0, 200);
-
+    public static Boolean disableXP;
     public static Boolean allowNetherPortalForming;
     public static Double minecartSpeed;
-    public static Integer leftBarHeightOffset;
-    public static Integer rightBarHeightOffset;
     public static Boolean generateLargeOreNodes;
-    public static Boolean disableAccessibilityOnboardingScreen;
+
+    //************************
+    // Tag related
+    //
+    private static final ModConfigSpec.BooleanValue ENABLE_INVENTORY_TOTEM = BUILDER
+            .comment("Should the tag \"#c:death_preventables\" be active and allow totems from the inventory.")
+            .define("enableInventoryTotem", false);
+    private static final ModConfigSpec.BooleanValue HOT_ITEMS_DAMAGE_PLAYER = BUILDER
+            .comment("Should the tag \"#c:will_burn_players\" be active.")
+            .define("hotItemsDamagePlayers", false);
+    private static final ModConfigSpec.BooleanValue ITEMS_HEAT_IMMUNE = BUILDER
+            .comment("Should the tag \"#c:heat_resistant_items\" be active.")
+            .define("itemsFireImmunity", false);
+
+    private static final ModConfigSpec.BooleanValue WHATEVER = BUILDER
+            .comment("Should the tag \"#c:heat_resistant_items\" be active.")
+            .define("whatever", false);
+
     public static Boolean enableInventoryTotem;
     public static Boolean hotItemsDamagePlayers;
     public static Boolean itemsFireImmunity;
-    public static Boolean disableXP;
+
+    //************************
+    // UI Related
+    //
+    private static final ModConfigSpec.BooleanValue DISABLE_NARRATOR = BUILDER
+            .comment("Whether to disable the first Narrator screen on launch. Unless you're developing, probably keep this off.")
+            .define("disableAccessibilityOnboardingScreen", false);
+    private static final ModConfigSpec.IntValue LEFT_BAR_HEIGHT = BUILDER
+            .comment("Height of the heart and armor bar offset.")
+            .defineInRange("leftBarHeightOffset", 0, -50, 50);
+    private static final ModConfigSpec.IntValue RIGHT_BAR_HEIGHT = BUILDER
+            .comment("Height of the food bar offset.")
+            .defineInRange("rightBarHeightOffset", 0, -50, 50);
+    private static final ModConfigSpec.IntValue OFFSET_APPLESKIN = BUILDER
+            .comment("Offsetting the AppleSkin food and heart overlay -in pixels- if it's installed.")
+            .defineInRange("offsetAppleskin", 0, 0, 200);
+
+    public static Boolean disableAccessibilityOnboardingScreen;
+    public static Integer leftBarHeightOffset;
+    public static Integer rightBarHeightOffset;
     public static Integer offsetAppleskin;
+
+    //************************
+    // Mechanics mob-related
+    //
+    private static final ModConfigSpec.BooleanValue PREVENT_HOSTILES_PF =  BUILDER
+            .comment("If hostiles should stop spawning. Does not include the Wither and Ender Dragon bosses.")
+            .define("preventHostiles", false);
+
+    private static final ModConfigSpec.BooleanValue PREVENT_DRAGON_BOSS =  BUILDER
+            .comment("Prevents the ender dragon from spawning. ANY DIFFICULTY")
+            .define("preventDragonBoss", false);
+
+    private static final ModConfigSpec.BooleanValue PREVENT_WITHER_BOSS_FORMING =  BUILDER
+            .comment("Prevents the Wither boss from forming. ANY DIFFICULTY")
+            .define("preventWitherBossForm", false);
+
+    private static final ModConfigSpec.BooleanValue PREVENT_WITHER_BOSS_SPAWN =  BUILDER
+            .comment("Prevents the Wither boss from spawning. ANY DIFFICULTY")
+            .define("preventWitherBossSpawn", false);
+
+    private static final ModConfigSpec.BooleanValue PREVENT_SLIMES = BUILDER
+            .comment("Prevents Slimes from spawning. ANY DIFFICULTY")
+            .define("preventSlimeSpawn", false);
+
+    public static Boolean preventHostiles;
+    public static Boolean preventDragonBoss;
+    public static Boolean preventWitherBossForm;
+    public static Boolean preventWitherBossSpawn;
+    public static Boolean preventSlimeSpawn;
+
+    // END OF CONFIG
 
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     @SubscribeEvent
     static void onLoad(
-            final ModConfigEvent event) {
+            final ModConfigEvent event
+    ) {
+
         allowNetherPortalForming = ALLOW_NETHER_PORTAL.get();
         minecartSpeed = MINECART_SPEED.get();
+        generateLargeOreNodes = GENERATE_LARGE_ORE_NODES.get();
+        disableXP = EXPERIENCE_DISABLE.get();
+
         leftBarHeightOffset = LEFT_BAR_HEIGHT.get();
         rightBarHeightOffset = RIGHT_BAR_HEIGHT.get();
-        generateLargeOreNodes = GENERATE_LARGE_ORE_NODES.get();
+        offsetAppleskin = OFFSET_APPLESKIN.get();
         disableAccessibilityOnboardingScreen = DISABLE_NARRATOR.get();
+
         enableInventoryTotem = ENABLE_INVENTORY_TOTEM.get();
         hotItemsDamagePlayers = HOT_ITEMS_DAMAGE_PLAYER.get();
         itemsFireImmunity = ITEMS_HEAT_IMMUNE.get();
-        disableXP = EXPERIENCE_DISABLE.get();
-        offsetAppleskin = OFFSET_APPLESKIN.get();
+
+        preventHostiles = PREVENT_HOSTILES_PF.get();
+        preventDragonBoss = PREVENT_DRAGON_BOSS.get();
+        preventWitherBossForm = PREVENT_WITHER_BOSS_FORMING.get();
+        preventWitherBossSpawn = PREVENT_WITHER_BOSS_SPAWN.get();
+        preventSlimeSpawn = PREVENT_SLIMES.get();
     }
 }

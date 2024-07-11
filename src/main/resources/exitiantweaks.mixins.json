@@ -11,6 +11,7 @@
     "AbstractMinecartMixin",
     "HotbarMixin",
     "NarratorMixin",
-    "NoiseGeneratorSettingsMixin"
+    "NoiseGeneratorSettingsMixin",
+    "PreventWitherFormMixin"
   ]
 }
