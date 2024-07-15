@@ -6,6 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import cpw.mods.modlauncher.api.IModuleLayerManager;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.client.gui.screens.AccessibilityOnboardingScreen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.commands.CommandSourceStack;
@@ -56,19 +57,17 @@ public class EventHandler {
     //used for timing stuff
     public static int lastTick = 0;
     // TODO: Implement animations one shot protection
-    @SubscribeEvent
-    public static void oneShotProt(LivingIncomingDamageEvent event) {
-        if (event.getEntity() instanceof Player pPlayer) {
-            if (event.getOriginalAmount() + 1 > pPlayer.getHealth()) {
-                pPlayer.setHealth(2f);
-
-                event.setCanceled(true);
-
-            }
-
-        }
-
-    }
+//    @SubscribeEvent
+//    public static void oneShotProt(LivingIncomingDamageEvent event) {
+//        if (event.getEntity() instanceof Player pPlayer) {
+//            if (event.getOriginalAmount() + 1 > pPlayer.getHealth()) {
+//                pPlayer.setHealth(2f);
+//                event.setCanceled(true);
+//            }
+//
+//        }
+//
+//    }
 
 
     @SubscribeEvent
