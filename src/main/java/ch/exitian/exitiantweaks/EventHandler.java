@@ -32,14 +32,17 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.common.EffectCures;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerXpEvent;
@@ -55,13 +58,13 @@ public class EventHandler {
 
     //used for timing stuff
     public static int lastTick = 0;
+
     // TODO: Implement animations one shot protection
     @SubscribeEvent
     public static void oneShotProt(LivingIncomingDamageEvent event) {
         if (event.getEntity() instanceof Player pPlayer) {
             if (event.getOriginalAmount() + 1 > pPlayer.getHealth()) {
                 pPlayer.setHealth(2f);
-
                 event.setCanceled(true);
 
             }
@@ -97,6 +100,10 @@ public class EventHandler {
     public static void deleteXPFromCommand(PlayerXpEvent.XpChange event) {
         event.setCanceled(disableXP);
     }
+    @SubscribeEvent
+    public static void LivingXPDropEvent(LivingExperienceDropEvent event) {
+        event.setCanceled(disableXP);
+    }
 
 
     @SubscribeEvent
@@ -107,7 +114,6 @@ public class EventHandler {
             }
         }
     }
-
 
     @SubscribeEvent
     public static void portalSpawnEvent(BlockEvent.PortalSpawnEvent event) {
