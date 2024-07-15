@@ -12,6 +12,7 @@
     "HotbarMixin",
     "NarratorMixin",
     "NoiseGeneratorSettingsMixin",
-    "PreventWitherFormMixin"
+    "PreventWitherFormMixin",
+    "PlayerCanUseGameMasterBlockMixin"
   ]
 }

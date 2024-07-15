@@ -1,5 +1,6 @@
 package ch.exitian.exitiantweaks.config;
 
+import net.minecraft.world.level.block.CommandBlock;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
@@ -29,25 +30,35 @@ public class Config {
             .comment("Whether to generate large copper and iron ore nodes. Might break your world if you toggle this.")
             .define("generateLargeOreNodes", true);
 
-    private static final ModConfigSpec.BooleanValue ONE_SHOT_PROT = BUILDER
-            .comment("Whether to enable one-shot protection. Will set health to 1 heart instead of killing.")
-            .define("oneShotProt", false);
+//    private static final ModConfigSpec.BooleanValue ONE_SHOT_PROT = BUILDER
+//            .comment("Whether to enable one-shot protection. Will set health to 1 heart instead of killing.")
+//            .define("oneShotProt", false);
+//
+//    private static final ModConfigSpec.IntValue ONE_SHOT_CD = BUILDER
+//            .comment("How long the cooldown should be. In Ticks. 600 ticks are 30 seconds.")
+//            .defineInRange("oneShotCD", 600,0, Integer.MAX_VALUE);
+//
+//    private static final ModConfigSpec.IntValue ONE_SHOT_MIN_HEALTH = BUILDER
+//            .comment("How much health at the minimum the player should have to benefit. In HP, 16 = 8 hearts")
+//            .defineInRange("oneShotMinHP", 16, 1, 1024);
 
-    private static final ModConfigSpec.IntValue ONE_SHOT_CD = BUILDER
-            .comment("How long the cooldown should be. In Ticks. 600 ticks are 30 seconds.")
-            .defineInRange("oneShotCD", 600,0, Integer.MAX_VALUE);
-    
-    private static final ModConfigSpec.IntValue ONE_SHOT_MIN_HEALTH = BUILDER
-            .comment("How much health at the minimum the player should have to benefit. In HP, 16 = 8 hearts")
-            .defineInRange("oneShotMinHP", 16, 1, 1024);
+    private static final ModConfigSpec.BooleanValue ALLOW_COMMAND_BLOCK_USE = BUILDER
+            .comment("Whether to allow command block use. FOR EVERYONE INCL. CREATIVE.")
+            .define("allowCommandBlockUse", true);
+
+    private static final ModConfigSpec.BooleanValue OVERRIDE_COMMAND_BLOCK_PERM = BUILDER
+            .comment("Whether or not to override the permission level for command blocks. This and allowCommandBlockUse need to be true to allow survival commandblocks.")
+            .define("overrideCommandBlockPerm", false);
 
     public static Boolean disableXP;
     public static Boolean allowNetherPortalForming;
     public static Double minecartSpeed;
     public static Boolean generateLargeOreNodes;
-    public static Boolean oneShotProt;
-    public static Integer oneShotCD;
-    public static Integer oneShotMinHP;
+//    public static Boolean oneShotProt;
+//    public static Integer oneShotCD;
+//    public static Integer oneShotMinHP;
+    public static Boolean allowCommandBlockUse;
+    public static Boolean overrideCommandBlockPerm;
 
     //************************
     // Tag related
@@ -133,9 +144,11 @@ public class Config {
         minecartSpeed = MINECART_SPEED.get();
         generateLargeOreNodes = GENERATE_LARGE_ORE_NODES.get();
         disableXP = EXPERIENCE_DISABLE.get();
-        oneShotProt = ONE_SHOT_PROT.get();
-        oneShotCD = ONE_SHOT_CD.get();
-        oneShotMinHP = ONE_SHOT_MIN_HEALTH.get();
+//        oneShotProt = ONE_SHOT_PROT.get();
+//        oneShotCD = ONE_SHOT_CD.get();
+//        oneShotMinHP = ONE_SHOT_MIN_HEALTH.get();
+        allowCommandBlockUse = ALLOW_COMMAND_BLOCK_USE.get();
+        overrideCommandBlockPerm = OVERRIDE_COMMAND_BLOCK_PERM.get();
 
         leftBarHeightOffset = LEFT_BAR_HEIGHT.get();
         rightBarHeightOffset = RIGHT_BAR_HEIGHT.get();

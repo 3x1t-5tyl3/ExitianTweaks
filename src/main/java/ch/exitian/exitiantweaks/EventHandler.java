@@ -41,11 +41,13 @@ import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.common.EffectCures;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerXpEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -60,33 +62,19 @@ public class EventHandler {
     //used for timing stuff
     public static int lastTick = 0;
 
-    // TODO: Implement animations one shot protection
-
-//    @SubscribeEvent
-//    public static void oneShotProt(LivingIncomingDamageEvent event) {
-//        if (event.getEntity() instanceof Player pPlayer) {
-//            if (event.getOriginalAmount() + 1 > pPlayer.getHealth()) {
-//                pPlayer.setHealth(2f);
-//                event.setCanceled(true);
-//            }
-//
-//        }
-//
-//    }
-
-    @SubscribeEvent
-    public static void oneShotProt(LivingIncomingDamageEvent event) {
-        if (event.getEntity() instanceof Player pPlayer) {
-            if (event.getOriginalAmount() + 1 > pPlayer.getHealth()) {
-                pPlayer.setHealth(2f);
-                event.setCanceled(true);
-
-            }
-
-        }
-
-    }
-
+    // TODO:Implement animations one shot protection
+    //
+    //    @SubscribeEvent
+    //    public static void oneShotProt(LivingIncomingDamageEvent event) {
+    //        if (event.getEntity() instanceof Player pPlayer) {
+    //            if (event.getOriginalAmount() + 1 > pPlayer.getHealth()) {
+    //                pPlayer.setHealth(2f);
+    //                event.setCanceled(true);
+    //            }
+    //
+    //        }
+    //
+    //    }
 
     @SubscribeEvent
     public static void peacefulHunger(EntityJoinLevelEvent event) {
@@ -118,7 +106,6 @@ public class EventHandler {
     public static void LivingXPDropEvent(LivingExperienceDropEvent event) {
         event.setCanceled(disableXP);
     }
-
 
     @SubscribeEvent
     public static void setFireAndLavaImmune(EntityJoinLevelEvent event) {
