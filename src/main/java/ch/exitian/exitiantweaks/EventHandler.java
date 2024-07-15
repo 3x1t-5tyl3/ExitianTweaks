@@ -60,7 +60,32 @@ public class EventHandler {
     //used for timing stuff
     public static int lastTick = 0;
 
+    // TODO: Implement animations one shot protection
 
+//    @SubscribeEvent
+//    public static void oneShotProt(LivingIncomingDamageEvent event) {
+//        if (event.getEntity() instanceof Player pPlayer) {
+//            if (event.getOriginalAmount() + 1 > pPlayer.getHealth()) {
+//                pPlayer.setHealth(2f);
+//                event.setCanceled(true);
+//            }
+//
+//        }
+//
+//    }
+
+    @SubscribeEvent
+    public static void oneShotProt(LivingIncomingDamageEvent event) {
+        if (event.getEntity() instanceof Player pPlayer) {
+            if (event.getOriginalAmount() + 1 > pPlayer.getHealth()) {
+                pPlayer.setHealth(2f);
+                event.setCanceled(true);
+
+            }
+
+        }
+
+    }
 
 
     @SubscribeEvent
